@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
-const aboPlaceSchema = mongoose.Schema({
+const aboPlaceSchema = new mongoose.Schema({
   title: String,
   creatorEmail: String,
   photos: [String],
@@ -9,6 +9,7 @@ const aboPlaceSchema = mongoose.Schema({
     default: new Date(),
   },
   description: String,
+  cloudinary_id: [String],
 }, { collection: 'places-data' });
 
-export default mongoose.model("AboPlace", aboPlaceSchema);
+module.exports = mongoose.model("AboPlace", aboPlaceSchema);
