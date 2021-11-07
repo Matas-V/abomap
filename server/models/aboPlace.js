@@ -10,6 +10,10 @@ const aboPlaceSchema = new mongoose.Schema({
   },
   description: String,
   cloudinary_id: [String],
-}, { collection: 'places-data' });
+  likesCount: {
+    type: Number,
+    default: 0,
+  }
+});
 
-module.exports = mongoose.model("AboPlace", aboPlaceSchema);
+module.exports = (collectionName) => mongoose.model("AboPlace", aboPlaceSchema, collectionName);

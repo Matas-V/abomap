@@ -6,6 +6,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 
 const placesRoutes = require('./routes/place.js');
+const admin = require('./routes/admin.js');
 dotenv.config();
 
 // Middleware
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 
 // Route
 app.use('/places', placesRoutes);
+app.use('/admin', admin);
 
 const PORT = process.env.PORT || 5000;
 
