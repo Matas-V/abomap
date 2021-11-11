@@ -25,10 +25,14 @@ const SubmitModal = ({ openSubmitModal, setOpenSubmitModal, itemId, setOpenViewM
   return (
     <Modal open={openSubmitModal} onClose={() => setOpenSubmitModal(false)}>
       <Box sx={style}>
-        <Typography gutterBottom variant="h6" component="h2">Ar tikrai norite <b>patvirtinti</b> šį prašymą?</Typography>
+        <Typography gutterBottom variant="h5" component="h2">Ar tikrai norite <b>patvirtinti</b> šį prašymą?</Typography>
         <Box display="flex" flexDirection="row">
-          <Button onClick={handleConfirmSubmit} variant="contained" size="small" color="success">Patvirtinti</Button>
-          <Button style={{ marginLeft: '8px' }} onClick={() => setOpenSubmitModal(false)} variant="contained" size="small" color="error">Atšaukti</Button>
+          <Button onClick={handleConfirmSubmit} variant="contained" size="small" color="success">
+            <Typography variant="h6">Patvirtinti</Typography>
+          </Button>
+          <Button style={{ marginLeft: '8px' }} onClick={() => setOpenSubmitModal(false)} variant="contained" size="small" color="error">
+            <Typography variant="h6">Atšaukti</Typography>
+          </Button>
         </Box>
       </Box>
     </Modal>

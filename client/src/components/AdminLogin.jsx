@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from '../features/placesApi';
 
-import { Container, Box, Button, TextField, Avatar, CssBaseline, Alert } from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Container, Box, Button, TextField, Avatar, CssBaseline, Alert, Typography } from '@mui/material';
+import { FaLock } from 'react-icons/fa';
 
 const AdminLogin = () => {
   const [nameInput, setNameInput] = useState('');
@@ -25,7 +25,7 @@ const AdminLogin = () => {
   }
 
   return (
-    <Container maxWidth="xs" style={{ height: 'calc(100vh - 38px)', display: 'flex', alignItems: 'center', }}>
+    <Container maxWidth="xs" style={{ height: 'calc(100vh - 30px)', display: 'flex', alignItems: 'center', }}>
       <CssBaseline />
       <Box
         sx={{
@@ -36,13 +36,14 @@ const AdminLogin = () => {
         }}
       >
         <Alert style={{ width: '100%', opacity: `${error ? 1 : 0 }` }} variant="filled" severity="error">
-          Blogas slaptažodis!
+          <Typography variant="h5">Blogas slaptažodis!</Typography>
         </Alert>
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
+          <FaLock />
         </Avatar>
         <Box component="form" onSubmit={(e) => handleSubmit(e)} noValidate sx={{ mt: 1 }}>
             <TextField
+              sx={{ fontSize: '1.5rem' }}
               margin="normal"
               required
               fullWidth
@@ -72,7 +73,7 @@ const AdminLogin = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Prisijungti
+              <Typography variant="h6">Prisijungti</Typography>
             </Button>
           </Box>
       </Box>

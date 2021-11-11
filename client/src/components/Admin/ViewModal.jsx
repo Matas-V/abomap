@@ -39,13 +39,19 @@ const ViewModal = ({ setOpenViewModal, openViewModal, itemId, setOpenDeleteModal
             autoHeight
             items={carouselImages}
         />
-        <Typography variant="body1" gutterBottom><b>Title:</b> {data.title}</Typography>
-        <Typography variant="body1" gutterBottom><b>Description:</b> {data.description}</Typography>
+        <Typography variant="h5" gutterBottom><b>Title:</b> {data.title}</Typography>
+        <Typography variant="h5" gutterBottom><b>Description:</b> {data.description}</Typography>
 
         <Box display="flex" flexDirection="row">
-          <Button onClick={() => {}} variant="contained" size="small" color="info">Pataisyti</Button>
-          <Button style={{ marginLeft: '8px' }} onClick={() => setOpenSubmitModal(true)} variant="contained" size="small" color="success">Patvirtinti</Button>
-          <Button style={{ marginLeft: '8px' }} onClick={() => setOpenDeleteModal(true)} variant="contained" size="small" color="error">Panaikinti</Button>
+          <Button onClick={() => {}} variant="contained" size="small" color="info">
+            <Typography variant="h6">Pataisyti</Typography>
+          </Button>
+          <Button style={{ marginLeft: '8px' }} onClick={() => setOpenSubmitModal(true)} variant="contained" size="small" color="success">
+            <Typography variant="h6">Patvirtinti</Typography>
+          </Button>
+          <Button style={{ marginLeft: '8px' }} onClick={() => setOpenDeleteModal(true)} variant="contained" size="small" color="error">
+            <Typography variant="h6">Panaikinti</Typography>
+          </Button>
         </Box>
       </Box>
     </Modal>

@@ -6,3 +6,4 @@ export { default as AdminLogin } from './AdminLogin';
 export { default as Footer } from './Footer';
 export { default as NotFound } from './NotFound';
 export { default as MapPage } from './MapPage/MapPage';
+export { default as PlacePage } from './PlacePage/PlacePage';

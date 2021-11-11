@@ -70,17 +70,23 @@ const AdminPanel = () => {
                 alt="Abo Place"
               />
               <CardContent sx={{ flexGrow: 1 }}>
-                <Typography gutterBottom variant="h5" component="h2">
+                <Typography gutterBottom variant="h4" component="h2">
                   {item.title}
                 </Typography>
-                <Typography>
+                <Typography variant="h6">
                   {item.description}
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button variant="contained" size="small" color="info" onClick={() => handleViewOpen(item._id)}>Peržiūrėti</Button>
-                <Button variant="contained" color="success" size="small" onClick={() => handleSubmitOpen(item._id)}>Patvirtinti</Button>
-                <Button variant="contained" color="error" size="small" onClick={() => handleDeleteOpen(item._id)}>Panaikinti</Button>
+                <Button variant="contained" size="small" color="info" onClick={() => handleViewOpen(item._id)}>
+                  <Typography variant="h6">Peržiūrėti</Typography>
+                </Button>
+                <Button variant="contained" color="success" size="small" onClick={() => handleSubmitOpen(item._id)}>
+                  <Typography variant="h6">Patvirtinti</Typography>
+                </Button>
+                <Button variant="contained" color="error" size="small" onClick={() => handleDeleteOpen(item._id)}>
+                  <Typography variant="h6">Panaikinti</Typography>
+                </Button>
               </CardActions>
             </Card>
           </Grid>

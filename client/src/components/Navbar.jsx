@@ -41,17 +41,17 @@ const Navbar = () => {
       <AppBar position="fixed">
         <Toolbar className={classes.toolbar}>
             <div>
-              <Typography sx={{ fontWeight: '700', }} className={classes.title} variant="h5">Abomap</Typography>
+              <Typography sx={{ fontWeight: '700', }} className={classes.title} variant="h4">Abomap</Typography>
             </div>
             <div className={classes.nav}>
               <Link underline="none" component="button" onClick={() => navigate('/')}>
-                <Typography className={classes.navText} variant="h6">Pradžia</Typography>
+                <Typography className={classes.navText} variant="h5">Pradžia</Typography>
               </Link>
               <Link underline="none" component="button" onClick={() => navigate('/zemelapiai')}>
-                <Typography className={classes.navText} variant="h6">Žemėlapiai</Typography>
+                <Typography className={classes.navText} variant="h5">Žemėlapiai</Typography>
               </Link>
               <Link underline="none" component="button" onClick={() => navigate('/paraiska')}>
-                <Typography className={classes.navText} variant="h6">Paraiška</Typography>
+                <Typography className={classes.navText} variant="h5">Paraiška</Typography>
               </Link>
             </div>
         </Toolbar>

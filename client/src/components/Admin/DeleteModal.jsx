@@ -25,10 +25,14 @@ const DeleteModal = ({ openDeleteModal, setOpenDeleteModal, itemId, setOpenViewM
   return (
     <Modal open={openDeleteModal} onClose={() => setOpenDeleteModal(false)}>
       <Box sx={style}>
-        <Typography gutterBottom variant="h6" component="h2">Ar tikrai norite <b>panaikinti</b> šį prašymą?</Typography>
+        <Typography gutterBottom variant="h5" component="h2">Ar tikrai norite <b>panaikinti</b> šį prašymą?</Typography>
         <Box display="flex" flexDirection="row">
-          <Button onClick={handleConfirmDelete} variant="contained" size="small" color="success">Patvirtinti</Button>
-          <Button style={{ marginLeft: '8px' }} onClick={() => setOpenDeleteModal(false)} variant="contained" size="small" color="error">Atšaukti</Button>
+          <Button onClick={handleConfirmDelete} variant="contained" size="small" color="success">
+            <Typography variant="h6">Patvirtinti</Typography>
+          </Button>
+          <Button style={{ marginLeft: '8px' }} onClick={() => setOpenDeleteModal(false)} variant="contained" size="small" color="error">
+            <Typography variant="h6">Atšaukti</Typography>
+          </Button>
         </Box>
       </Box>
     </Modal>
