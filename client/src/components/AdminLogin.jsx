@@ -43,8 +43,8 @@ const AdminLogin = () => {
         </Avatar>
         <Box component="form" onSubmit={(e) => handleSubmit(e)} noValidate sx={{ mt: 1 }}>
             <TextField
-              sx={{ fontSize: '1.5rem' }}
               margin="normal"
+              InputLabelProps={{ sx: { fontSize: '1.25rem' } }}
               required
               fullWidth
               name="name"
@@ -59,6 +59,7 @@ const AdminLogin = () => {
               margin="normal"
               required
               fullWidth
+              InputLabelProps={{ sx: { fontSize: '1.25rem' } }}
               name="password"
               label="Password"
               type="password"

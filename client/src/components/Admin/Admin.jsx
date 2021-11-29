@@ -9,7 +9,7 @@ import ViewModal from './ViewModal';
 import SubmitModal from './SubmitModal';
 
 const AdminPanel = () => {
-  const { data, isLoading, isError, isSuccess } = useGetAdminPlacesQuery();
+  const { data, isLoading, isSuccess } = useGetAdminPlacesQuery();
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openViewModal, setOpenViewModal] = useState(false);
   const [openSubmitModal, setOpenSubmitModal] = useState(false);
@@ -38,7 +38,7 @@ const AdminPanel = () => {
     )
   }
 
-  if (isError) {
+  if (!localStorage.getItem('token')) {
     return <Navigate to="/secretadminpanel/login" />
   }
 
