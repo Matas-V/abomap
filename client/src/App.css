@@ -5,5 +5,20 @@
 }
 
 html, body {
-  
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  width: 12px
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(56,184,111,1);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #339966;
 }
