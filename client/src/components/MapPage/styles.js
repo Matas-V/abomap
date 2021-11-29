@@ -20,20 +20,6 @@ const useStyles = makeStyles(() => ({
   textCon: {
     overflowY: 'auto',
     padding: '24px 0',
-    '&::-webkit-scrollbar': {
-      width: '12px',
-    },
-    '&::-webkit-scrollbar-track': {
-      boxShadow: 'inset 0 0 5px grey', 
-      borderRadius: '10px',
-    },
-    '&::-webkit-scrollbar-thumb': {
-      background: 'rgba(56,184,111,1)',
-      borderRadius: '10px',
-    },
-    '&::-webkit-scrollbar-thumb:hover': {
-      background: '#339966',
-    },
   },
 }));
 

@@ -1,61 +1,70 @@
-import React from 'react';
-import { esriConfig, Map, MapView, BasemapToggle, Graphic, GraphicsLayer, PictureMarkerSymbol, Search } from '@arcgis/core';
+import React, { useRef, useEffect } from 'react';
+import MapView from '@arcgis/core/views/MapView';
+import Map from '@arcgis/core/Map';
+import esriConfig from "@arcgis/core/config";
+import Search from "@arcgis/core/widgets/Search";
+import Graphic from "@arcgis/core/Graphic";
+import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
+import BasemapToggle from "@arcgis/core/widgets/BasemapToggle";
 
 const MapLayer = () => {
-
+  const mapRef = useRef(null);
   esriConfig.apiKey = process.env.REACT_APP_MAP_API;
-
-  const map = new Map({
-    basemap: "arcgis-navigation" // Basemap layer service
-  });
-        
-  const view = new MapView({
-    map: map,
-    center: [23.8813, 55.1694], // Longitude, latitude
-    zoom: 6, // Zoom level
-    container: "viewDiv" // Div element
-  });
-  view.constraints = {
-  minZoom: 2
-  };
-  const search = new Search({
-    view: view
-  });
-  view.ui.add(search, "top-right");
-
-  const graphicsLayer = new GraphicsLayer();
-  map.add(graphicsLayer);
-  const point = { //Create a point
-    type: "point",
-    longitude: 24.377460,
-    latitude: 55.735026
-  };
   
-  var symbol = {
-    type: "picture-marker",
-    url: "https://res.cloudinary.com/dvsrvp11e/image/upload/v1635156583/icons/red_pointer_csx9nh.png",
-    width: "31px",
-    height: "44px",
-    yoffset: "22px"
-  };
+  useEffect(() => {
+    const view = new MapView({
+      container: mapRef.current,
+      map: new Map({
+        basemap: "arcgis-navigation",
+      }),
+      zoom: 6,
+      center: [23.8813, 55.1694],
+      constraints: { minZoom: 2 },
+    });
 
+    const search = new Search({
+      view: view
+    });
+    view.ui.add(search, "top-right");
 
-  var pointGraphic = new Graphic({
-    geometry: point,
-    symbol: symbol
-  });
-  view.graphics.add(pointGraphic);
+    // cia is duombazes i guess ateis koordinates
+    const point = {
+      type: "point",
+      longitude: 24.377460,
+      latitude: 55.735026
+    };
+    
+    var symbol = {
+      type: "picture-marker",
+      url: "https://res.cloudinary.com/dvsrvp11e/image/upload/v1635156583/icons/red_pointer_csx9nh.png",
+      width: "31px",
+      height: "44px",
+      yoffset: "22px"
+    };
 
-  const basemapToggle = new BasemapToggle({
-    view: view,
-    nextBasemap: "arcgis-imagery"
-  });
-  view.ui.add(basemapToggle,"bottom-right");
+    view.graphics.add(
+      new Graphic({
+        geometry: point,
+        symbol: symbol
+      })
+    );
 
+    view.ui.add(
+      new BasemapToggle({
+        view: view,
+        nextBasemap: "arcgis-imagery"
+      }),
+      "bottom-right");
+
+  }, []);
+
+  // koks tikslas sito?
+  // const graphicsLayer = new GraphicsLayer();
+  // map.add(graphicsLayer);
   // graphicsLayer.reorder(World_Basemap_v2, 0);
 
   return (
-    <div id="viewDiv">
+    <div id="viewDiv" ref={mapRef} style={{ width: '100%' }}>
       
     </div>
   )
