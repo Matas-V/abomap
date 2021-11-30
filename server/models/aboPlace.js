@@ -13,6 +13,9 @@ const aboPlaceSchema = new mongoose.Schema({
   likesCount: {
     type: Number,
     default: 0,
+  },
+  coords: {
+    type: mongoose.Schema.Types.Mixed,
   }
 });
 

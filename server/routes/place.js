@@ -31,6 +31,7 @@ router.post("/", upload.array("image", 5), async (req, res) => {
 
     const urls = [];
     const files = req.files;
+
     for (const file of files) {
       const { path } = file;
       const newPath = await uploader(path);
@@ -47,6 +48,9 @@ router.post("/", upload.array("image", 5), async (req, res) => {
       description: req.body.description,
       photos: photos,
       cloudinary_id: cloud_ids,
+      coords: {
+        lat: req.body.lat, lon: req.body.lon, 
+      },
     });
 
     // Save place
