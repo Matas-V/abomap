@@ -21,7 +21,14 @@ export const placesApi = createApi({
       query: (placeId) => ({
         url: `/places/${placeId}`,
         method: 'GET',
-      })
+      }),
+    }),
+    submitPlace: builder.mutation({
+      query: (formData) => ({
+        url: '/places',
+        method: 'POST',
+        body: formData,
+      }),
     }),
     likePlace: builder.mutation({
       query: ({ placeId, state }) => ({
@@ -78,6 +85,7 @@ export const placesApi = createApi({
 export const {
   useGetPlacesQuery,
   useGetPlaceQuery,
+  useSubmitPlaceMutation,
   useLikePlaceMutation,
   useDeletePlaceMutation,
   useLoginMutation,
