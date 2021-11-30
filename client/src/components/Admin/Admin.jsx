@@ -71,10 +71,13 @@ const AdminPanel = () => {
               />
               <CardContent sx={{ flexGrow: 1 }}>
                 <Typography gutterBottom variant="h4" component="h2">
-                  {item.title}
+                  <b>Pavadinimas: </b>{item.title}
+                </Typography>
+                <Typography gutterBottom variant="h6" component="h2">
+                  <b>Koordinatės: </b>{`platuma: ${item.coords.lat}, ilguma: ${item.coords.lon}`}
                 </Typography>
                 <Typography variant="h6">
-                  {item.description}
+                  <b>Aprašymas: </b>{item.description}
                 </Typography>
               </CardContent>
               <CardActions>

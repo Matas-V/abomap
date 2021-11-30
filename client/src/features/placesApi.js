@@ -11,7 +11,7 @@ export const placesApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Places", "AdminPlaces"],
+  tagTypes: ["Places", "AdminPlaces", "Place"],
   endpoints: (builder) => ({
     getPlaces: builder.query({
       query: () => '/places',
@@ -22,6 +22,7 @@ export const placesApi = createApi({
         url: `/places/${placeId}`,
         method: 'GET',
       }),
+      providesTags: ["Place"],
     }),
     submitPlace: builder.mutation({
       query: (formData) => ({
@@ -36,7 +37,7 @@ export const placesApi = createApi({
         method: 'PATCH',
         body: state,
       }),
-      invalidatesTags: ['Places'],
+      invalidatesTags: ['Places', 'Place'],
     }),
     deletePlace: builder.mutation({
       query: (placeId) => ({

@@ -22,11 +22,12 @@ const FormPlace = () => {
   });
   const [photos, setPhotos] = useState([]);
   const [previewImg, setPreviewImg] = useState([]);
+  const [formSuccess, setFormSuccess] = useState(false);
   const [formError, setFormError] = useState({
     state: false,
     type: '',
   });
-  const [submitPlace, { isSuccess, isLoading }] = useSubmitPlaceMutation();
+  const [submitPlace, { isLoading }] = useSubmitPlaceMutation();
   const classes = useStyles();
 
   const handleSubmit = async (e) => {
@@ -40,7 +41,8 @@ const FormPlace = () => {
       formData.append("lat", form.coords.lat);
       formData.append("lon", form.coords.lon);
       await submitPlace(formData);
-      console.log(formData);
+      setFormSuccess(true);
+      setTimeout(() => setFormSuccess(false), 2500);
       setForm({ name: '', description: '', email: '', coords: { lat: '', lon: '' } });
       setPhotos([]);
       setPreviewImg([]);
@@ -49,7 +51,7 @@ const FormPlace = () => {
         state: true,
         type: FORM_ERROR,
       });
-      setTimeout(() => setFormError({ state: false, type: ''}), 2000);
+      setTimeout(() => setFormError({ state: false, type: ''}), 2500);
     }
   }
 
@@ -113,7 +115,7 @@ const FormPlace = () => {
                         {formError.type === IMAGES_ERROR && "Oops! Atrodo jūs bandėte įkelti daugiau nei 5 nuotraukas."}
                       </Typography>
                     </Alert>)}
-                    {isSuccess && (
+                    {formSuccess && (
                     <Alert variant="filled" severity="success">
                       <Typography variant="h5">Pavyko! Jūs sėkmingai pasidalinote vietove.</Typography>
                     </Alert>)}

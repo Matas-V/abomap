@@ -4,10 +4,12 @@ import Map from '@arcgis/core/Map';
 import esriConfig from "@arcgis/core/config";
 import Search from "@arcgis/core/widgets/Search";
 import Graphic from "@arcgis/core/Graphic";
-import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
 import BasemapToggle from "@arcgis/core/widgets/BasemapToggle";
 
+import { useGetPlacesQuery } from '../../features/placesApi';
+
 const MapLayer = () => {
+  const { data } = useGetPlacesQuery();
   const mapRef = useRef(null);
   esriConfig.apiKey = process.env.REACT_APP_MAP_API;
   
@@ -26,13 +28,6 @@ const MapLayer = () => {
       view: view
     });
     view.ui.add(search, "top-right");
-
-    // cia is duombazes i guess ateis koordinates
-    const point = {
-      type: "point",
-      longitude: 24.377460,
-      latitude: 55.735026
-    };
     
     var symbol = {
       type: "picture-marker",
@@ -42,12 +37,19 @@ const MapLayer = () => {
       yoffset: "22px"
     };
 
-    view.graphics.add(
-      new Graphic({
-        geometry: point,
-        symbol: symbol
-      })
-    );
+    for (let i=0; i<data?.length; i++) {
+      const point = {
+        type: "point",
+        longitude: data[i].coords.lon,
+        latitude: data[i].coords.lat,
+      };
+      view.graphics.add(
+        new Graphic({
+          geometry: point,
+          symbol: symbol,
+        })
+      );
+    }
 
     view.ui.add(
       new BasemapToggle({
@@ -56,12 +58,7 @@ const MapLayer = () => {
       }),
       "bottom-right");
 
-  }, []);
-
-  // koks tikslas sito?
-  // const graphicsLayer = new GraphicsLayer();
-  // map.add(graphicsLayer);
-  // graphicsLayer.reorder(World_Basemap_v2, 0);
+  }, [data]);
 
   return (
     <div id="viewDiv" ref={mapRef} style={{ width: '100%' }}>

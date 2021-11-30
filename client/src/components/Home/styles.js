@@ -43,9 +43,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  skeletonCon: {
-    margin: '80px 0 0 40px',
-  },
 }));
 
 export default useStyles;

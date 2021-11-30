@@ -67,6 +67,7 @@ router.delete('/places/save/:id', verifyToken, async (req, res) => {
         description: place.description,
         photos: place.photos,
         cloudinary_id: place.cloudinary_id,
+        coords: place.coords,
       });
 
       await place.remove();

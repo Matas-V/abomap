@@ -39,8 +39,9 @@ const ViewModal = ({ setOpenViewModal, openViewModal, itemId, setOpenDeleteModal
             autoHeight
             items={carouselImages}
         />
-        <Typography variant="h5" gutterBottom><b>Title:</b> {data.title}</Typography>
-        <Typography variant="h5" gutterBottom><b>Description:</b> {data.description}</Typography>
+        <Typography variant="h5" gutterBottom><b>Pavadinimas:</b> {data.title}</Typography>
+        <Typography variant="h5" gutterBottom><b>Koordinatės:</b> {`platuma: ${data.coords.lat}, ilguma: ${data.coords.lon}`}</Typography>
+        <Typography variant="h5" gutterBottom><b>Aprašymas:</b> {data.description}</Typography>
 
         <Box display="flex" flexDirection="row">
           <Button onClick={() => {}} variant="contained" size="small" color="info">

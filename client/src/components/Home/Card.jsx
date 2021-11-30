@@ -9,8 +9,8 @@ const PlaceCard = ({ item, handleLikeBtn, likeBtnColorHandler }) => {
   const classes = useStyles();
 
   return (
-    <Card sx={{ borderRadius: '20px', overflow: 'visible', boxShadow:
-    `0px 0px 5.7px rgba(0, 0, 0, 0.18),
+    <Card sx={{ borderRadius: '20px', overflow: 'visible', width: '85%', minHeight: '200px',
+    boxShadow: `0px 0px 5.7px rgba(0, 0, 0, 0.18),
     0px 0px 10.2px rgba(0, 0, 0, 0.12),
     0px 0px 15.2px rgba(0, 0, 0, 0.064),
     0px 0px 26.3px rgba(0, 0, 0, 0.015),
@@ -28,7 +28,7 @@ const PlaceCard = ({ item, handleLikeBtn, likeBtnColorHandler }) => {
       </div>
       <CardContent className={classes.cardContent}>
         <Typography variant="h4" style={{ fontFamily: 'Arial, Rounded, MT', fontWeight: 'bold' }} color="rgba(56,184,111,1)">{item.title}</Typography>
-        <Typography style={{ margin: '20px 0' }} variant="h6">{item.description.substring(0, 200)}...</Typography>
+        <Typography style={{ margin: '20px 0' }} variant="h6">{item.description.substring(0, 250)}...</Typography>
         <Button onClick={() => navigate(`/vieta/${item._id}`)} style={{ color: 'white', backgroundColor: 'rgba(56,184,111,1)', padding: '10px 20px', fontSize: '11px', maxWidth: '150px', fontFamily: 'Lucida Sans Unicode', textTransform: 'none' }} size="small" variant="contained">Skaityti daugiau</Button>
       </CardContent>
       <div style={{ minHeight: '100%', display: 'flex', alignItems: 'stretch' }}>
