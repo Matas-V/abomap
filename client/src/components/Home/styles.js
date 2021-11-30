@@ -22,13 +22,12 @@ const useStyles = makeStyles((theme) => ({
   },
   imgCon: {
     position: 'relative',
-    height: '170px',
+    display: 'flex',
+    alignItems: 'center',
     width: '230px',
   },
   cardImg: {
-    margin: `${53/2}px 0`,
     borderRadius: '20px',
-    position: 'absolute',
     transform: 'translateX(-20px)',
     height: '170px',
     width: '200px',

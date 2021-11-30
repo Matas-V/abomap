@@ -17,7 +17,7 @@ const localStoreData = () => {
 const Home = () => {
   const { data } = useGetPlacesQuery();
   const [likePlace] = useLikePlaceMutation();
-  const [userLikes, setUserLikes] = useState(localStoreData() || []);
+  const [userLikes, setuserLikes] = useState(localStoreData() || []);
   let popularPlaces = [];
   const classes = useStyles();
   
@@ -31,11 +31,11 @@ const Home = () => {
     e.preventDefault();
     if (userLikes.indexOf(id) !== -1) {
       likePlace({ placeId: id, state: { action: 'DISLIKE' }});
-      const newUserLikes = userLikes.filter((item) => item !== id );
-      setUserLikes(newUserLikes);
+      const newuserLikes = userLikes.filter((item) => item !== id );
+      setuserLikes(newuserLikes);
     } else {
       likePlace({ placeId: id, state: { action: 'LIKE' }});
-      setUserLikes([...userLikes, id]);
+      setuserLikes([...userLikes, id]);
     }
   }
 
