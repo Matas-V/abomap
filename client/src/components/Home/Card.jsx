@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Button, Card, CardMedia, CardContent } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import { MdOutlineFavorite } from 'react-icons/md';
+import { IoMdHeartEmpty, IoMdHeart } from 'react-icons/io';
 import useStyles from './styles';
 
 const PlaceCard = ({ item, handleLikeBtn, likeBtnColorHandler }) => {
@@ -34,7 +34,7 @@ const PlaceCard = ({ item, handleLikeBtn, likeBtnColorHandler }) => {
       <div style={{ minHeight: '100%', display: 'flex', alignItems: 'stretch' }}>
         <Button id="likeBtn" onClick={(e) => handleLikeBtn(e, item._id)} variant="contained" style={{ backgroundColor: 'rgba(255,21,21,0.549)', color: '#FFFFFF' }} sx={{ borderRadius: '0 20px 20px 0', width: '45px', height: '100%', padding: '6px 12px' }}>
           <div className={classes.favBtnCon}>
-            { likeBtnColorHandler(item._id) ? <MdOutlineFavorite style={{ color: '#e50004', fontSize: '2.5rem' }} /> : <MdOutlineFavorite style={{ fontSize: '2.5rem' }} />}
+            { likeBtnColorHandler(item._id) ? <IoMdHeart style={{ fontSize: '2.5rem' }} /> : <IoMdHeartEmpty style={{ fontSize: '2.5rem' }} />}
             <Typography variant="h5" color="white">{item.likesCount}</Typography>
           </div>
         </Button>

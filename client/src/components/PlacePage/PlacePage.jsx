@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetPlaceQuery, useLikePlaceMutation } from '../../features/placesApi';
 
-import { MdOutlineFavorite, MdPlace, MdShare } from 'react-icons/md';
+import { MdPlace, MdShare } from 'react-icons/md';
+import { IoMdHeartEmpty, IoMdHeart } from 'react-icons/io';
 import { CircularProgress } from '@mui/material';
 import './styles.css';
 
@@ -139,13 +140,13 @@ const PlacePage = () => {
       </div>
       {/* <!-- Stulpelio pabaiga --> */}
       <div className="Skirtukas">
-        <MdOutlineFavorite className="sirdis" style={{ fontSize: '40px', color: `${liked ? '#e50004' : 'white' }` }} />
+        {liked ? <IoMdHeart className="sirdis" style={{ fontSize: '40px' }} /> : <IoMdHeartEmpty className="sirdis" style={{ fontSize: '40px' }} />}
         <h3>{data.likesCount}</h3>
       </div>
 
       <div className="Skirtukas1">
         <button className="btn-like" href="#" onClick={(e) => handleLike(e)}>
-          <MdOutlineFavorite style={{ fontSize: '30px', color: `${liked ? '#e50004' : 'white' }` }} />
+          {liked ? <IoMdHeart style={{ fontSize: '40px', color: 'white' }} /> : <IoMdHeartEmpty style={{ fontSize: '40px', color: 'white' }} />}
         </button>
         <button className="btn-share" href="#">
           <MdShare style={{ fontSize: '30px', color: 'white' }} />
