@@ -8,6 +8,10 @@ html, body {
   overflow-y: auto;
 }
 
+.esri-ui-manual-container>.esri-component {
+  visibility: hidden;
+}
+
 ::-webkit-scrollbar {
   width: 12px
 }

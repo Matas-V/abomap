@@ -1,26 +1,44 @@
 import React from 'react';
-import { Container, Typography, Skeleton, Box, IconButton } from '@mui/material';
+import { useNavigate } from "react-router-dom";
+import { Container, Typography, Box, IconButton, Skeleton, Stack, Collapse } from '@mui/material';
 import { FaLocationArrow, FaArrowLeft } from 'react-icons/fa';
-
 import useStyles from './styles';
 
-const PlaceInfo = () => {
+import { useGetPlaceQuery } from '../../features/placesApi';
+
+const PlaceInfo = ({ displayId, infoOpen, setInfoOpen }) => {
+  const { data } = useGetPlaceQuery(displayId);
+  const navigate = useNavigate();
   const classes = useStyles();
 
   return (
-    <Box maxWidth="400px" component="div" display="flex" flexDirection="column">
-      <div style={{ maxWidth: '400px', }}>
-        <img className={classes.imgPlace} alt="some" src="https://www.varle.lt/static/uploads/products/143/cas/castor-puzzle-1000-dalys-rialto-w-nocy_hizgmww.jpeg" />
-      </div>
-      <Container sx={{ display: 'flex', width: '100%' }} className={classes.infoButton}>
-        <IconButton color="inherit"><FaArrowLeft /></IconButton>
-        <Typography variant="h4">Pavadinimas</Typography>
-        <IconButton color="inherit"><FaLocationArrow /></IconButton>
-      </Container>
-      <Container className={classes.textCon}>
-        <Typography variant="h4" gutterBottom>Vel pavadinimas</Typography>
-        <Typography variant="h6">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</Typography>
-      </Container>
+    <Box sx={{ backgroundColor: `${infoOpen ? 'white' : 'rgba(56,184,111,1)' }`, transition: 'background-color, 1s', height: '100%' }} maxWidth="400px" component="div" display="flex" flexDirection="column">
+      <Collapse in={infoOpen} orientation="horizontal" collapsedSize={60} timeout={1000}>
+        <div>
+          <div id="placeImgCon" style={{ maxWidth: '400px' }}>
+            {!displayId ? <Skeleton animation="wave" variant="rectangular" width={400} height={270} /> : (
+              <img className={classes.imgPlace} alt={data?.title} src={data?.photos[0]} />
+            )}
+          </div>
+          <Container sx={{ display: 'flex', width: '100%' }} className={classes.infoButton}>
+            <IconButton sx={{ fontSize: '2rem', transform: `${!infoOpen && 'rotate(180deg)'}`, transition: 'transform, 1s' }} color="inherit" onClick={() => setInfoOpen(!infoOpen)}><FaArrowLeft /></IconButton>
+            <IconButton disabled={displayId ? false : true} sx={{ fontSize: '2rem' }} color="inherit" onClick={() => navigate(`/vieta/${displayId}`)}><FaLocationArrow /></IconButton>
+          </Container>
+          <Container className={classes.textCon} sx={{ height: `calc(100vh - 64px - 30px - 36px - ${document.getElementById('placeImgCon')?.offsetHeight}px)` }}>
+            {!displayId ? (
+              <Stack spacing={3}>
+                <Skeleton sx={{ borderRadius: '10px' }} animation="wave" variant="rectangular" width={'100%'} height={40} />
+                <Skeleton sx={{ borderRadius: '10px' }} animation="wave" variant="rectangular" width={'100%'} height={270} />
+              </Stack>
+            ) : (
+              <>
+                <Typography variant="h4" gutterBottom>{data?.title}</Typography>
+                <Typography variant="h6">{data?.description}</Typography>
+              </>
+            )}
+          </Container>
+        </div>
+      </Collapse>
     </Box>
   )
 }
