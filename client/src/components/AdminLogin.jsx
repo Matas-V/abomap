@@ -17,7 +17,7 @@ const AdminLogin = () => {
     const userToken = await login({ name: nameInput, password: passInput });
     if (userToken?.data?.token) {
       localStorage.setItem("token", userToken.data.token);
-      navigate('/secretadminpanel');
+      navigate('/secretadminpanel/prasymai');
     } else {
       setError(true);
       setTimeout(() => setError(false), 2000);

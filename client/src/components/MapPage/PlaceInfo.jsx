@@ -7,7 +7,7 @@ import useStyles from './styles';
 import { useGetPlaceQuery } from '../../features/placesApi';
 
 const PlaceInfo = ({ displayId, infoOpen, setInfoOpen }) => {
-  const { data } = useGetPlaceQuery(displayId);
+  const { data, isFetching } = useGetPlaceQuery(displayId);
   const navigate = useNavigate();
   const classes = useStyles();
 
@@ -16,7 +16,7 @@ const PlaceInfo = ({ displayId, infoOpen, setInfoOpen }) => {
       <Collapse in={infoOpen} orientation="horizontal" collapsedSize={60} timeout={1000}>
         <div>
           <div id="placeImgCon" style={{ maxWidth: '400px' }}>
-            {!displayId ? <Skeleton animation="wave" variant="rectangular" width={400} height={270} /> : (
+            {!displayId || isFetching ? <Skeleton animation="wave" variant="rectangular" width={400} height={270} /> : (
               <img className={classes.imgPlace} alt={data?.title} src={data?.photos[0]} />
             )}
           </div>
@@ -25,7 +25,7 @@ const PlaceInfo = ({ displayId, infoOpen, setInfoOpen }) => {
             <IconButton disabled={displayId ? false : true} sx={{ fontSize: '2rem' }} color="inherit" onClick={() => navigate(`/vieta/${displayId}`)}><FaLocationArrow /></IconButton>
           </Container>
           <Container className={classes.textCon} sx={{ height: `calc(100vh - 64px - 30px - 36px - ${document.getElementById('placeImgCon')?.offsetHeight}px)` }}>
-            {!displayId ? (
+            {!displayId || isFetching ? (
               <Stack spacing={3}>
                 <Skeleton sx={{ borderRadius: '10px' }} animation="wave" variant="rectangular" width={'100%'} height={40} />
                 <Skeleton sx={{ borderRadius: '10px' }} animation="wave" variant="rectangular" width={'100%'} height={270} />

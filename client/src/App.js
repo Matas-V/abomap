@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import './App.css';
 
-import { Home, AdminPanel, Navbar, FormPlace, AdminLogin, Footer, NotFound, MapPage, PlacePage } from './components';
+import { Home, AdminRequests, Navbar, FormPlace, AdminLogin, Footer, NotFound, MapPage, PlacePage, AdminPlaces, PlaceEdit, RequestEdit } from './components';
 
 
 const App = () => {
@@ -16,7 +16,10 @@ const App = () => {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/secretadminpanel" element={<AdminPanel />} />
+          <Route path="/secretadminpanel/*" element={<AdminRequests />} />
+          <Route path="/secretadminpanel/vietos" element={<AdminPlaces />} />
+          <Route path="/vietos/redagavimas/:id" element={<PlaceEdit />} />
+          <Route path="/prasymai/redagavimas/:id" element={<RequestEdit />} />
           <Route path="/secretadminpanel/login" element={<AdminLogin />} />
           <Route path="/zemelapiai" element={<MapPage />} />
           <Route path="/paraiska" element={<FormPlace />} />

@@ -59,30 +59,44 @@ const PlacePage = () => {
     <div className="row" style={{ minHeight: 'calc(100vh - 94px)' }}>
       {/* <!-- col-left --> */}
 
-      <div className="col-lg-6" style={{ paddingLeft: '45px', paddingTop: '20px' }}>
+      <div className="col-lg-5" style={{ paddingLeft: '45px', paddingTop: '20px' }}>
         <h1 style={{ marginBottom: '60px', marginLeft: '20px' }}>{data.title}</h1>
         <div className="wiki">
           <p>Wiki</p>
         </div>
-        <div className="text-box">
-          <p>
-            Sartų ežeru iš pietų į pietvakarius prateka upė Šventoji, taip pat
-            susrūva dar keli upeliai: Audra, Kriauna, Zalvė, Serbentupis,
-            Vasyna, Plavelė, Ūžos upelis, Cibeikė, Ilgelė, Zaduoja, Biržupys.
-            Jie suneša vandenis iš aplinkinių ežerų – Zalvės, Zaduojo, Ilgio,
-            Plavio, Keležerio ir kt. Ežero pratakumas 452 % per metus.
-          </p>
+        <div className="text-box" style={{ marginBottom: '50px', overflowY: 'auto' }}>
+          <p>{data.wiki}</p>
         </div>
 
-        <div className="wiki" style={{ width: '220px', marginTop: '50px' }}>
+        <div className="wiki" style={{ width: '220px', marginTop: '50px', }}>
           <p>Privalumai</p>
         </div>
-        <div className="text-box" style={{ marginBottom: '50px' }}>
+        <div className="text-box" style={{ marginBottom: '50px', overflowY: 'auto' }}>
           <p>
             {data.description}
           </p>
         </div>
       </div>
+
+      <div className="col-lg-1">
+        <div className="Skirtukas">
+          {liked ? <IoMdHeart className="sirdis" style={{ fontSize: '40px' }} /> : <IoMdHeartEmpty className="sirdis" style={{ fontSize: '40px' }} />}
+          <h3>{data.likesCount}</h3>
+        </div>
+
+        <div className="Skirtukas1">
+          <button className="btn-like" href="#" onClick={(e) => handleLike(e)}>
+            {liked ? <IoMdHeart style={{ fontSize: '40px', color: 'white' }} /> : <IoMdHeartEmpty style={{ fontSize: '40px', color: 'white' }} />}
+          </button>
+          <button className="btn-share" href="#">
+            <MdShare style={{ fontSize: '30px', color: 'white' }} />
+          </button>
+          <button className="btn-point" href="#">
+            <MdPlace style={{ fontSize: '30px', color: 'white' }} />
+          </button>
+        </div>
+      </div>
+
       {/* <!-- col-right --> */}
 
       <div
@@ -138,23 +152,7 @@ const PlacePage = () => {
           </div>
         </div>
       </div>
-      {/* <!-- Stulpelio pabaiga --> */}
-      <div className="Skirtukas">
-        {liked ? <IoMdHeart className="sirdis" style={{ fontSize: '40px' }} /> : <IoMdHeartEmpty className="sirdis" style={{ fontSize: '40px' }} />}
-        <h3>{data.likesCount}</h3>
-      </div>
 
-      <div className="Skirtukas1">
-        <button className="btn-like" href="#" onClick={(e) => handleLike(e)}>
-          {liked ? <IoMdHeart style={{ fontSize: '40px', color: 'white' }} /> : <IoMdHeartEmpty style={{ fontSize: '40px', color: 'white' }} />}
-        </button>
-        <button className="btn-share" href="#">
-          <MdShare style={{ fontSize: '30px', color: 'white' }} />
-        </button>
-        <button className="btn-point" href="#">
-          <MdPlace style={{ fontSize: '30px', color: 'white' }} />
-        </button>
-      </div>
     </div>
   </div>
   )

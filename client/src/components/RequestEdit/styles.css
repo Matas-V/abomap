@@ -134,7 +134,8 @@ h1 {
 
 .btn-point{
     border-radius: 8px;
-    margin: 20%;
+    margin-left: 20%;
+    margin-top: 20%;
     width: 60%;
     height: 40px;
     background: #65D6B2;
@@ -143,7 +144,6 @@ h1 {
 
 .sirdis {
   position: absolute;
-  color: white;
   top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -185,7 +185,7 @@ h1 {
   width: 100%;
 }
 .carousel-inner img {
-  margin: 13px;
+    margin: 13px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -239,15 +239,15 @@ h1 {
   }
 }
 
-.text-box::-webkit-scrollbar-track {
+textarea[name="greenTextBox"]::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
   background-color: #ededef;
   border-radius: 10px;
 }
-.text-box::-webkit-scrollbar-thumb {
+textarea[name="greenTextBox"]::-webkit-scrollbar-thumb {
   background: white;
   border-radius: 10px;
 }
-.text-box::-webkit-scrollbar-thumb:hover {
+textarea[name="greenTextBox"]::-webkit-scrollbar-thumb:hover {
   background: #edeeee;
 }

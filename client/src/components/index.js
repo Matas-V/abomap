@@ -1,5 +1,8 @@
 export { default as Home } from './Home/Home';
-export { default as AdminPanel } from './Admin/Admin';
+export { default as AdminRequests } from './Admin/Requests';
+export { default as AdminPlaces } from './Admin/PlacesControl';
+export { default as PlaceEdit } from './PlaceEdit/PlaceEdit';
+export { default as RequestEdit } from './RequestEdit/RequestEdit';
 export { default as FormPlace } from './FormPlace/FormPlace';
 export { default as Navbar } from './Navbar';
 export { default as AdminLogin } from './AdminLogin';

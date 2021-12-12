@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const placesApi = createApi({
   name: 'placesApi',
   baseQuery: fetchBaseQuery({ 
-    baseUrl: 'http://localhost:5000',
+    baseUrl: 'https://abomap.herokuapp.com/',
     prepareHeaders: (headers) => {
       const token = localStorage.getItem('token');
       headers.set('authorization', `Bearer ${token}`);
@@ -11,7 +11,7 @@ export const placesApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Places", "AdminPlaces", "Place"],
+  tagTypes: ["Places", "Place", "Request", "Requests", "AdminPlaces"],
   endpoints: (builder) => ({
     getPlaces: builder.query({
       query: () => '/places',
@@ -53,6 +53,35 @@ export const placesApi = createApi({
         body: credentials,
       }),
     }),
+    getAdminRequests: builder.query({
+      query: () => ({
+        url: '/admin/places/requests',
+        method: 'GET',
+      }),
+      providesTags: ["Requests"],
+    }),
+    deleteAdminRequest: builder.mutation({
+      query: (placeId) => ({
+        url: `/admin/places/requests/${placeId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ["Requests"],
+    }),
+    getAdminRequest: builder.query({
+      query: (placeId) => ({
+        url: `/admin/places/requests/${placeId}`,
+        method: 'GET',
+      }),
+      providesTags: ["Request"],
+    }),
+    editAdminRequest: builder.mutation({
+      query: ({ id, edit }) => ({
+        method: 'POST',
+        url: `/admin/requests/edit/${id}`,
+        body: edit,
+      }),
+      invalidatesTags: ['Requests', 'Request'],
+    }),
     getAdminPlaces: builder.query({
       query: () => ({
         url: '/admin/places',
@@ -73,12 +102,20 @@ export const placesApi = createApi({
         method: 'GET',
       })
     }),
+    editAdminPlace: builder.mutation({
+      query: ({ id, edit }) => ({
+        method: 'POST',
+        url: `/admin/places/edit/${id}`,
+        body: edit,
+      }),
+      invalidatesTags: ["AdminPlaces", 'Place'],
+    }),
     moveAdminPlace: builder.mutation({
       query: (placeId) => ({
         url: `/admin/places/save/${placeId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ["AdminPlaces"],
+      invalidatesTags: ["Requests"],
     })
   })
 });
@@ -93,5 +130,10 @@ export const {
   useGetAdminPlacesQuery,
   useDeleteAdminPlaceMutation,
   useGetAdminPlaceQuery,
+  useGetAdminRequestsQuery,
+  useDeleteAdminRequestMutation,
+  useGetAdminRequestQuery,
+  useEditAdminRequestMutation,
+  useEditAdminPlaceMutation,
   useMoveAdminPlaceMutation,
 } = placesApi;
