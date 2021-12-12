@@ -51,6 +51,7 @@ router.post("/", upload.array("image", 5), async (req, res) => {
       coords: {
         lat: req.body.lat, lon: req.body.lon, 
       },
+      creatorEmail: req.body.email,
     });
 
     // Save place

@@ -1,11 +1,12 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 const cloudinary = require("../utils/cloudinary");
 const aboAdminPlace = require("../models/aboPlace")('adminPlaces-data');
 const aboPlace = require("../models/aboPlace")('places-data');
 
-router.get('/places', verifyToken, async (req, res) => {
+router.get('/places/requests', verifyToken, async (req, res) => {
   const places = await aboAdminPlace.find();
 
   await jwt.verify(req.token, process.env.ADMIN_SECRET, (err, authData) => {
@@ -21,7 +22,23 @@ router.get('/places', verifyToken, async (req, res) => {
   });
 });
 
-router.get("/places/:id", verifyToken, async (req, res) => {
+router.get('/places', verifyToken, async (req, res) => {
+  const places = await aboPlace.find();
+
+  await jwt.verify(req.token, process.env.ADMIN_SECRET, (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      res.json({
+        auth: true,
+        authData,
+        data: places,
+      });
+    }
+  });
+});
+
+router.get("/places/requests/:id", verifyToken, async (req, res) => {
   await jwt.verify(req.token, process.env.ADMIN_SECRET, async (err) => {
     if (err) {
       res.sendStatus(403);
@@ -33,7 +50,39 @@ router.get("/places/:id", verifyToken, async (req, res) => {
   })
 });
 
+router.get("/places/:id", verifyToken, async (req, res) => {
+  await jwt.verify(req.token, process.env.ADMIN_SECRET, async (err) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      const { id } = req.params;
+      let place = await aboPlace.findById(id);
+      res.status(200).json(place);
+    }
+  })
+});
+
 router.delete('/places/:id', verifyToken, async (req, res) => {
+  let place = await aboPlace.findById(req.params.id);
+
+  await jwt.verify(req.token, process.env.ADMIN_SECRET, async (err) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      for (const id of place.cloudinary_id) {
+        await cloudinary.uploader.destroy(id);
+      }
+
+      await place.remove();
+      res.status(200).json({
+        message: "Place successfully deleted",
+        data: place,
+      });
+    }
+  });
+});
+
+router.delete('/places/requests/:id', verifyToken, async (req, res) => {
   let place = await aboAdminPlace.findById(req.params.id);
 
   await jwt.verify(req.token, process.env.ADMIN_SECRET, async (err) => {
@@ -53,6 +102,39 @@ router.delete('/places/:id', verifyToken, async (req, res) => {
   });
 });
 
+router.post('/places/edit/:id', verifyToken, async (req, res) => {
+  await jwt.verify(req.token, process.env.ADMIN_SECRET, async (err) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      if (!mongoose.Types.ObjectId.isValid(req.params.id)) return res.status(404).send(`No post with id: ${req.params.id}`);
+      const { title, description, wiki, coords } = req.body;
+
+      const updatedPlace = await aboPlace.findByIdAndUpdate(req.params.id, {
+        title: title, description: description, wiki: wiki, coords: coords,
+      }, { new: true });
+      res.json(updatedPlace);
+    }
+  })
+});
+
+router.post('/requests/edit/:id', verifyToken, async (req, res) => {
+  await jwt.verify(req.token, process.env.ADMIN_SECRET, async (err) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      if (!mongoose.Types.ObjectId.isValid(req.params.id)) return res.status(404).send(`No post with id: ${req.params.id}`);
+      const { title, description, wiki, coords } = req.body;
+
+      const updatedPlace = await aboAdminPlace.findByIdAndUpdate(req.params.id, {
+        title: title, description: description, wiki: wiki, coords: coords,
+      }, { new: true });
+      res.json(updatedPlace);
+    }
+  })
+});
+
+// moving from admin-db to abomap-db
 router.delete('/places/save/:id', verifyToken, async (req, res) => {
   let place = await aboAdminPlace.findById(req.params.id);
   

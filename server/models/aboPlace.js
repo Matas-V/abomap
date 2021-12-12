@@ -16,7 +16,8 @@ const aboPlaceSchema = new mongoose.Schema({
   },
   coords: {
     type: mongoose.Schema.Types.Mixed,
-  }
+  },
+  wiki: String,
 });
 
 module.exports = (collectionName) => mongoose.model("AboPlace", aboPlaceSchema, collectionName);
