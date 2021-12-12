@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const placesApi = createApi({
   name: 'placesApi',
   baseQuery: fetchBaseQuery({ 
-    baseUrl: 'https://abomap.herokuapp.com/',
+    baseUrl: process.env.REACT_APP_DATA_URL,
     prepareHeaders: (headers) => {
       const token = localStorage.getItem('token');
       headers.set('authorization', `Bearer ${token}`);
