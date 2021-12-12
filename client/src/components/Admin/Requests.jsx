@@ -1,13 +1,23 @@
 import React, { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import AdminSidebar from '../AdminSidebar';
-import { Box, Card, CardContent, Typography, Button, Stack, CircularProgress } from '@mui/material';
+import { Box, Card, CardContent, Typography, Button, Stack, CircularProgress, Modal } from '@mui/material';
 import { MdDeleteForever, MdLocationOn, MdEdit, MdCheck } from 'react-icons/md';
 import { useGetAdminRequestsQuery, useDeleteAdminRequestMutation, useMoveAdminPlaceMutation } from '../../features/placesApi';
 import { FaRegSadCry } from 'react-icons/fa';
-import Modal from './Modal';
+import ActionModal from './Modal';
+import MapLayer from './Map';
 
 import useStyles from './styles.js';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+};
 
 const NewAdmin = () => {
   const { data, isLoading, isError, isSuccess } = useGetAdminRequestsQuery();
@@ -18,6 +28,8 @@ const NewAdmin = () => {
   const [openSubmitModal, setOpenSubmitModal] = useState(false);
   const [currentId, setCurrentId] = useState();
   const [email, setEmail] = useState('');
+  const [coords, setCoords] = useState({ lat: '', lon: '' });
+  const [map, setMap] = useState(false);
   let navigate = useNavigate();
   const classes = useStyles();
 
@@ -67,8 +79,14 @@ const NewAdmin = () => {
       <AdminSidebar />
       <Box display="flex" sx={{ border: 'lightgrey solid 2px', flexDirection: 'column', width: '100%', padding: '50px 0' }}>
 
-      {openDeleteModal && <Modal openModal={openDeleteModal} setOpenModal={setOpenDeleteModal} action={deletePlace} currentId={currentId} text={"ištrinti"} />}
-      {openSubmitModal && <Modal openModal={openSubmitModal} setOpenModal={setOpenSubmitModal} action={movePlace} currentId={currentId} text={"patvirtinti"} email={email} />}
+      {openDeleteModal && <ActionModal openModal={openDeleteModal} setOpenModal={setOpenDeleteModal} action={deletePlace} currentId={currentId} text={"ištrinti"} />}
+      {openSubmitModal && <ActionModal openModal={openSubmitModal} setOpenModal={setOpenSubmitModal} action={movePlace} currentId={currentId} text={"patvirtinti"} email={email} />}
+
+      <Modal open={map} onClose={() => setMap(false)}>
+        <Box sx={style}>
+          <MapLayer coords={coords} />
+        </Box>
+      </Modal>
 
         <Stack spacing={5} sx={{ alignItems: 'center' }}>
           {data?.data.map((item, i) => (
@@ -95,7 +113,7 @@ const NewAdmin = () => {
                 <div className={classes.cardImgCon}>
                   { handleImg(item) }
                 </div>
-                <Button style={{ fontSize: '40px', color: 'white', backgroundColor: 'rgba(56,184,111,1)', padding: '0 40px', borderRadius: '10px' }}  variant="contained">
+                <Button onClick={() => {setMap(true); setCoords(item.coords);}} style={{ fontSize: '40px', color: 'white', backgroundColor: 'rgba(56,184,111,1)', padding: '0 40px', borderRadius: '10px' }}  variant="contained">
                   <MdLocationOn />
                 </Button>
               </div>

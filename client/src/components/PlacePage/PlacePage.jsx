@@ -71,7 +71,7 @@ const PlacePage = () => {
         <div className="wiki" style={{ width: '220px', marginTop: '50px', }}>
           <p>Privalumai</p>
         </div>
-        <div className="text-box" style={{ marginBottom: '50px', overflowY: 'auto' }}>
+        <div className="text-box" style={{ marginBottom: '50px', overflowY: 'auto', wordWrap: 'break-word' }}>
           <p>
             {data.description}
           </p>
