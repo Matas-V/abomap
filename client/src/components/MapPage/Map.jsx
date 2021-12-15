@@ -10,6 +10,11 @@ import Handles from '@arcgis/core/core/Handles';
 
 import { useGetPlacesQuery } from '../../features/placesApi';
 
+const red = "https://res.cloudinary.com/dvsrvp11e/image/upload/v1635156583/icons/red_pointer_csx9nh.png";
+const green = "https://res.cloudinary.com/dvsrvp11e/image/upload/v1635195794/icons/green_pointer_nbzswg.png";
+const yellow = "https://res.cloudinary.com/dvsrvp11e/image/upload/v1635195795/icons/yellow_pointer_ncvwhz.png";
+const orange = "https://res.cloudinary.com/dvsrvp11e/image/upload/v1635195795/icons/orange_pointer_ne1mpa.png";
+
 const MapLayer = ({ setDisplayId, setInfoOpen }) => {
   const { data } = useGetPlacesQuery();
   const mapRef = useRef(null);
@@ -23,7 +28,7 @@ const MapLayer = ({ setDisplayId, setInfoOpen }) => {
     const view = new MapView({
       container: mapRef.current,
       map: new Map({
-        basemap: "arcgis-navigation",
+        basemap: "arcgis-imagery",
         layers: [glMain],
       }),
       highlightOptions: {
@@ -37,16 +42,9 @@ const MapLayer = ({ setDisplayId, setInfoOpen }) => {
     });
 
     view.ui.add(new Search({ view: view }), "top-right");
-    
-    var symbol = {
-      type: "picture-marker",
-      url: "https://res.cloudinary.com/dvsrvp11e/image/upload/v1635156583/icons/red_pointer_csx9nh.png",
-      width: "31px",
-      height: "44px",
-      yoffset: "22px",
-    };
 
     const layer = view.map.findLayerById("glMain");
+    // var index = view.map.layers.findIndex(layer => layer.id === 'glMain')
 
     if (layer) {
       for (let i=0; i<data?.length; i++) {
@@ -54,6 +52,13 @@ const MapLayer = ({ setDisplayId, setInfoOpen }) => {
           type: "point",
           longitude: data[i].coords.lon,
           latitude: data[i].coords.lat,
+        };
+        var symbol = {
+          type: "picture-marker",
+          url: data[i].likesCount < 100 ? green : data[i].likesCount < 500 ? yellow : data[i].likesCount < 1000 ? orange : red,
+          width: "31px",
+          height: "44px",
+          yoffset: "22px",
         };
         const graphic = new Graphic({
           geometry: point,
