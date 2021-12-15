@@ -28,7 +28,7 @@ const MapLayer = ({ setDisplayId, setInfoOpen }) => {
     const view = new MapView({
       container: mapRef.current,
       map: new Map({
-        basemap: "arcgis-imagery",
+        basemap: "arcgis-navigation",
         layers: [glMain],
       }),
       highlightOptions: {
