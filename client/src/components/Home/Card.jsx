@@ -28,7 +28,7 @@ const PlaceCard = ({ item, handleLikeBtn, likeBtnColorHandler }) => {
       </div>
       <CardContent className={classes.cardContent}>
         <Typography variant="h4" style={{ fontFamily: 'Arial, Rounded, MT', fontWeight: 'bold' }} color="rgba(56,184,111,1)">{item.title}</Typography>
-        <Typography style={{ margin: '20px 0' }} variant="h6">{item.description.substring(0, 250)}...</Typography>
+        <Typography style={{ margin: '20px 0' }} variant="h6">{item.description.length < 250 ? item.description : item.description.substring(0, 250) + '...'}</Typography>
         <Button onClick={() => navigate(`/vieta/${item._id}`)} style={{ color: 'white', backgroundColor: 'rgba(56,184,111,1)', padding: '10px 20px', fontSize: '11px', maxWidth: '150px', fontFamily: 'Lucida Sans Unicode', textTransform: 'none' }} size="small" variant="contained">Skaityti daugiau</Button>
       </CardContent>
       <div style={{ minHeight: '100%', display: 'flex', alignItems: 'stretch' }}>

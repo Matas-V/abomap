@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import AdminSidebar from '../AdminSidebar';
 import { Box, Card, CardContent, Typography, Button, Stack, CircularProgress, Modal } from '@mui/material';
 import { MdDeleteForever, MdLocationOn, MdEdit, MdCheck } from 'react-icons/md';
@@ -53,27 +53,25 @@ const NewAdmin = () => {
     return img;
   }
 
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      refetch();
-    } else if (isError) {
-      navigate('/secretadminpanel/login');
-    }
-  }, [isError]);
+  // useEffect(() => {
+  //   console.log(isError);
+
+  //   if (localStorage.getItem("token")) {
+  //     refetch();
+  //   } else if (!isError) {
+  //     navigate('/secretadminpanel/login');
+  //   }
+    
+  // }, []);
+
+  if (isError || !localStorage.getItem("token")) {
+    return <Navigate to='/secretadminpanel/login' />
+  }
 
   if (isLoading) {
     return (
       <div style={{ position: 'absolute', top: '50%', left: '50%' }}>
         <CircularProgress color="success" />
-      </div>
-    )
-  }
-
-  if (isSuccess && data.data.length === 0) {
-    return (
-      <div style={{ position: 'absolute', top: '50%', left: '50%', textAlign: 'center', transform: 'translate(-50%, -50%)', }}>
-        <Typography variant="h4" gutterBottom>Nėra naujų paraiškų</Typography>
-        <FaRegSadCry style={{ fontSize: '30px' }} />
       </div>
     )
   }
@@ -91,6 +89,13 @@ const NewAdmin = () => {
           <MapLayer coords={coords} />
         </Box>
       </Modal>
+
+        {isSuccess && data.data.length === 0 && (
+          <div style={{ position: 'absolute', top: '50%', left: '50%', textAlign: 'center', transform: 'translate(-50%, -50%)', }}>
+            <Typography variant="h4" gutterBottom>Nėra naujų paraiškų</Typography>
+            <FaRegSadCry style={{ fontSize: '30px' }} />
+          </div>
+        )}
 
         <Stack spacing={5} sx={{ alignItems: 'center' }}>
           {data?.data.map((item, i) => (

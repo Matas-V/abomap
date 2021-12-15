@@ -42,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
   favBtnCon: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'center',
   },
 }));
 

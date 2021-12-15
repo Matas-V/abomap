@@ -70,7 +70,7 @@ const PlacesControl = () => {
               </CardContent>
               <div className={classes.likesBtn}>
                 <Typography variant="h3" color="white" align="center"><IoMdHeart /></Typography>
-                <Typography variant="h4" color="white" align="center">{item.likesCount}</Typography>
+                <Typography sx={{ wordBreak: 'normal' }} variant="h4" color="white" align="center">{item.likesCount}</Typography>
               </div>
             </Card>
           ))}

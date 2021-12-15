@@ -5,7 +5,7 @@ import { useGetPlaceQuery, useLikePlaceMutation } from '../../features/placesApi
 import { MdPlace, MdShare } from 'react-icons/md';
 import { IoMdHeartEmpty, IoMdHeart } from 'react-icons/io';
 import { CircularProgress } from '@mui/material';
-import './styles.css';
+import '../styles.css';
 
 const localStoreData = () => {
   const userLikes = localStorage.getItem('likes');
@@ -56,7 +56,7 @@ const PlacePage = () => {
   return (
   <div className="container-fluid" style={{ marginTop: '64px' }}>
     {/* <!-- single row --> */}
-    <div className="row" style={{ minHeight: 'calc(100vh - 94px)' }}>
+    <div className="row">
       {/* <!-- col-left --> */}
 
       <div className="col-lg-5" style={{ paddingLeft: '45px', paddingTop: '20px' }}>
@@ -64,14 +64,14 @@ const PlacePage = () => {
         <div className="wiki">
           <p>Wiki</p>
         </div>
-        <div className="text-box" style={{ marginBottom: '50px', overflowY: 'auto' }}>
+        <div name="greenTextBox" className="text-box" style={{ marginBottom: '50px', overflowY: 'auto' }}>
           <p>{data.wiki}</p>
         </div>
 
         <div className="wiki" style={{ width: '220px', marginTop: '50px', }}>
-          <p>Privalumai</p>
+          <p>Vietovės aprašymas</p>
         </div>
-        <div className="text-box" style={{ marginBottom: '50px', overflowY: 'auto', wordWrap: 'break-word' }}>
+        <div name="greenTextBox" className="text-box" style={{ marginBottom: '50px', overflowY: 'auto', wordWrap: 'break-word' }}>
           <p>
             {data.description}
           </p>
@@ -81,7 +81,7 @@ const PlacePage = () => {
       <div className="col-lg-1">
         <div className="Skirtukas">
           {liked ? <IoMdHeart className="sirdis" style={{ fontSize: '40px' }} /> : <IoMdHeartEmpty className="sirdis" style={{ fontSize: '40px' }} />}
-          <h3>{data.likesCount}</h3>
+          <h3 style={{ wordBreak: 'normal' }}>{data.likesCount}</h3>
         </div>
 
         <div className="Skirtukas1">
@@ -143,7 +143,7 @@ const PlacePage = () => {
         </div>
         {/* <!--Karuseles pabaiga--> */}
         <div className="nuotrauku_dez">
-          <div className="row" style={{ paddingLeft: '14%', paddingTop: '20px' }}>
+          <div className="row" style={{ padding: '20px', justifyContent: 'center' }}>
             {data.photos.map((img, i) => (
               <div className="col-sm-3" key={i}>
                 <img src={img} alt="Abo vieta" />

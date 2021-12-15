@@ -7,7 +7,7 @@ import { TextField, CircularProgress, Box, Modal, Snackbar, Alert, Typography } 
 import { IoMdHeart } from 'react-icons/io';
 import { FiSave } from 'react-icons/fi';
 import MapModal from './MapModal';
-import './styles.css';
+import '../styles.css';
 
 const style = {
   position: 'absolute',
@@ -99,9 +99,8 @@ const EditPage = () => {
         <div className="wiki">
           <p>Wiki</p>
         </div>
-        <div className="text-box" style={{ overflowY: 'auto' }}>
+        <div name="greenTextBox" className="text-box" style={{ overflowY: 'auto' }}>
           <TextField
-            name="greenTextBox"
             fullWidth
             multiline
             InputProps={{
@@ -118,11 +117,10 @@ const EditPage = () => {
         </div>
 
         <div className="wiki" style={{ width: '220px', marginTop: '50px' }}>
-          <p>Privalumai</p>
+          <p>Vietovės aprašymas</p>
         </div>
-        <div className="text-box" style={{ marginBottom: '50px', overflowY: 'auto' }}>
+        <div name="greenTextBox" className="text-box" style={{ marginBottom: '50px', overflowY: 'auto' }}>
           <TextField
-            name="greenTextBox"
             multiline
             InputProps={{
               sx: {
@@ -143,7 +141,7 @@ const EditPage = () => {
       <div className="col-lg-1">
         <div className="Skirtukas" style={{ left: 'auto' }}>
           <IoMdHeart className="sirdis" style={{ fontSize: '40px' }} />
-          <h3>{data.likesCount}</h3>
+          <h3 style={{ wordBreak: 'normal' }}>{data.likesCount}</h3>
         </div>
 
         <div className="Skirtukas1" style={{ top: 'auto', left: 'auto' }}>
@@ -203,7 +201,7 @@ const EditPage = () => {
 
         {/* <!--Karuseles pabaiga--> */}
         <div className="nuotrauku_dez">
-          <div className="row" style={{ paddingLeft: '14%', paddingTop: '20px' }}>
+          <div className="row" style={{ padding: '20px', justifyContent: 'center' }}>
             {data.photos.map((img, i) => (
               <div className="col-sm-3" key={i}>
                 <img src={img} alt="Abo vieta" />

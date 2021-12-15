@@ -18,6 +18,7 @@ const AdminLogin = () => {
     if (userToken?.data?.token) {
       localStorage.setItem("token", userToken.data.token);
       navigate('/secretadminpanel/prasymai');
+      document.location.reload();
     } else {
       setError(true);
       setTimeout(() => setError(false), 2000);
@@ -43,6 +44,7 @@ const AdminLogin = () => {
         </Avatar>
         <Box component="form" onSubmit={(e) => handleSubmit(e)} noValidate sx={{ mt: 1 }}>
             <TextField
+              variant="standard"
               margin="normal"
               InputLabelProps={{ sx: { fontSize: '1.25rem' } }}
               required
@@ -56,6 +58,7 @@ const AdminLogin = () => {
               onChange={(e) => setNameInput(e.target.value)}
             />
             <TextField
+              variant="standard"
               margin="normal"
               required
               fullWidth
