@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AdminSidebar from '../AdminSidebar';
 import { Box, Card, CardContent, Typography, Button, Stack, CircularProgress, Modal } from '@mui/material';
 import { MdDeleteForever, MdLocationOn, MdEdit, MdCheck } from 'react-icons/md';
@@ -20,7 +20,7 @@ const style = {
 };
 
 const NewAdmin = () => {
-  const { data, isLoading, isError, isSuccess } = useGetAdminRequestsQuery();
+  const { data, isLoading, isError, isSuccess, refetch } = useGetAdminRequestsQuery();
   const [deletePlace] = useDeleteAdminRequestMutation();
   // movePlace - transfer from admin data to official data
   const [movePlace] = useMoveAdminPlaceMutation();
@@ -53,16 +53,20 @@ const NewAdmin = () => {
     return img;
   }
 
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      refetch();
+    } else if (isError) {
+      navigate('/secretadminpanel/login');
+    }
+  }, [isError]);
+
   if (isLoading) {
     return (
       <div style={{ position: 'absolute', top: '50%', left: '50%' }}>
         <CircularProgress color="success" />
       </div>
     )
-  }
-
-  if (!localStorage.getItem('token') || isError) {
-    return <Navigate to="/secretadminpanel/login" />
   }
 
   if (isSuccess && data.data.length === 0) {
